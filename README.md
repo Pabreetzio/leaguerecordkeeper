@@ -1,2 +1,2 @@
-# leaguerecordkeeper
+# League Recordkeeper
 League Recordkeeper tracks wins, loses, and other statistics for matches, games and competitions.
