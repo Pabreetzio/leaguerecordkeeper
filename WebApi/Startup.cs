@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
+using IdentityServer4.Models;
+using IdentityServer4.Test;
+using Microsoft.EntityFrameworkCore;
+using Data.Contexts;
 namespace WebApi
 {
     public class Startup
@@ -29,6 +32,17 @@ namespace WebApi
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddIdentityServer()
+            .AddInMemoryClients(new List<Client>())
+            .AddInMemoryIdentityResources(new List<IdentityResource>())
+            .AddInMemoryApiResources(new List<ApiResource>())
+            .AddTestUsers(new List<TestUser>())
+            .AddTemporarySigningCredential();
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=LeagueRecordkeeper;Trusted_Connection=True;";
+            services.AddDbContext<SecurityContext>(options => options.UseSqlServer(connection));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +53,7 @@ namespace WebApi
 
             app.UseMvc();
             app.UseStaticFiles();
+            app.UseIdentityServer();
         }
     }
 }

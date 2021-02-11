@@ -28,7 +28,7 @@
     <Content Include="src\app\app.component.html" />
     <Content Include="src\favicon.ico" />
     <Content Include="src\index.html" />
-    <Content Include="src\styles.css" />
+    <None Include="src\styles.scss" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
